@@ -26,7 +26,25 @@ class Tree {
         return root;
     }
 
-    includes(value) {}
+    includes(value) {
+        const topRoot = this.root;
+        
+        function checkValue(root) {
+            console.log(root.data)
+            if (root.data === value)
+                return true;
+            else {
+                if (root.leftNode !== null)
+                    if (checkValue(root.leftNode)) return true;
+
+                if (root.rightNode !== null)
+                    if (checkValue(root.rightNode)) return true;
+            };
+            return false;
+        };
+
+        return checkValue(topRoot);
+    }
 
     insert(value) {}
 
