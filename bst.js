@@ -27,26 +27,50 @@ class Tree {
     }
 
     includes(value) {
-        const topRoot = this.root;
+        const topNode = this.root;
         
-        function checkValue(root) {
-            console.log(root.data)
-            if (root.data === value)
+        function checkValue(node) {
+            console.log(node.data)
+            if (node.data === value)
                 return true;
             else {
-                if (root.leftNode !== null)
-                    if (checkValue(root.leftNode)) return true;
+                if (node.leftNode !== null)
+                    if (checkValue(node.leftNode)) return true;
 
-                if (root.rightNode !== null)
-                    if (checkValue(root.rightNode)) return true;
+                if (node.rightNode !== null)
+                    if (checkValue(node.rightNode)) return true;
             };
             return false;
         };
 
-        return checkValue(topRoot);
+        return checkValue(topNode);
     }
 
-    insert(value) {}
+    insert(value) {
+        const topRoot = this.root;
+
+        function compareValues(node) {
+            if (node.data === value) return;
+
+            if (value < node.data) {
+                if (node.leftNode !== null)
+                    compareValues(node.leftNode);
+                else {
+                    const newNode = new Node(value);
+                    node.leftNode = newNode;
+                }
+            } else if (value > node.data) {
+                if (node.rightNode !== null)
+                    compareValues(node.rightNode);
+                else {
+                    const newNode = new Node(value);
+                    node.rightNode = newNode;
+                }
+            }
+        }
+
+        compareValues(topRoot);
+    }
 
     deleteItem(value) {}
 
